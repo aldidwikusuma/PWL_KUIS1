@@ -19,9 +19,9 @@ Route::get('/', function () {
     ]);
 });
 
-// Route::get('/table', function () {
-//     return view('table');
-// });
+Route::get('/table', function () {
+    return view('table');
+});
 
 Route::get('/table/{title}', function ($title) {
     return view('table', [
