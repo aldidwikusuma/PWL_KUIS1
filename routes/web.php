@@ -14,5 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard', [
+        "title" => "Dashboard"
+    ]);
+});
+
+// Route::get('/table', function () {
+//     return view('table');
+// });
+
+Route::get('/table/{title}', function ($title) {
+    return view('table', [
+        "title" => "Table " . ucfirst($title),
+        "titleheader" => "Table of " . ucfirst($title),
+        "typetable" => $title
+    ]);
 });
