@@ -64,6 +64,36 @@
                                         </tr>
                                     @endforeach
                                     @break
+                                @case("pegawai")
+                                    @foreach ($table["data"] as $number => $datatablesatuan)
+                                        <tr>
+                                            <td>{{ $number+=1 }}</td>
+                                            <td>{{ $datatablesatuan->namaPegawai }}</td>
+                                            <td>{{ $datatablesatuan->jabatan }}</td>
+                                            <td>{{ $datatablesatuan->alamat }}</td>
+                                            <td>{{ $datatablesatuan->noTelp }}</td>
+                                            <td>
+                                                <a href="{{ url("table/" . $table["url"] . "/detail/$datatablesatuan->id") }}" class="btn btn-primary">Detail</a>
+                                                <a href="{{ url("table/" . $table["url"] . "/edit/$datatablesatuan->id") }}" class="btn btn-warning ml-1">Edit</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    @break
+                                @case("pelanggan")
+                                    @foreach ($table["data"] as $number => $datatablesatuan)
+                                        <tr>
+                                            <td>{{ $number+=1 }}</td>
+                                            <td>{{ $datatablesatuan->namaPelanggan }}</td>
+                                            <td>{{ $datatablesatuan->alamat }}</td>
+                                            <td>{{ $datatablesatuan->noTelp }}</td>
+                                            <td>{{ $datatablesatuan->email }}</td>
+                                            <td>
+                                                <a href="{{ url("table/" . $table["url"] . "/detail/$datatablesatuan->id") }}" class="btn btn-primary">Detail</a>
+                                                <a href="{{ url("table/" . $table["url"] . "/edit/$datatablesatuan->id") }}" class="btn btn-warning ml-1">Edit</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    @break
                                 @default
                             @endswitch
                         </tbody>

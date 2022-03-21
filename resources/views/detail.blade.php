@@ -12,10 +12,14 @@
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-5">
                     <!-- Nested Row within Card Body -->
+                    @if($datadetail['tableurl'] != "pegawai" && $datadetail['tableurl'] != "pelanggan")
                     <div class="row">
                         <div class="col-md-4">
                             <img width="300" src="{{ $datadetail["data"]->image }}" alt="Gambar Random" class="img-fluid">
                         </div>
+                    @else
+                    <div class="row justify-content-center align-items-center">
+                    @endif
                         <div class="col-md-8">
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Data {{ ucfirst($datadetail["tableurl"]) }} | ID Key = {{ $datadetail["data"]->id }}</h1>
@@ -34,6 +38,12 @@
                                                 @break
                                             @case("supplier")
                                                 {{ $datadetail["data"]->name }}
+                                                @break
+                                            @case("pegawai")
+                                                {{ $datadetail["data"]->namaPegawai }}
+                                                @break
+                                            @case("pelanggan")
+                                                {{ $datadetail["data"]->namaPelanggan }}
                                                 @break
                                             @default
                                         @endswitch
@@ -55,6 +65,12 @@
                                             @case("supplier")
                                                 {{ $datadetail["data"]->nik }}
                                                 @break
+                                            @case("pegawai")
+                                                {{ $datadetail["data"]->jabatan }}
+                                                @break
+                                            @case("pelanggan")
+                                                {{ $datadetail["data"]->alamat }}
+                                                @break
                                             @default
                                         @endswitch
                                     </div>
@@ -75,6 +91,12 @@
                                             @case("supplier")
                                                 {{ $datadetail["data"]->phone }}
                                                 @break
+                                            @case("pegawai")
+                                                {{ $datadetail["data"]->alamat }}
+                                                @break
+                                            @case("pelanggan")
+                                                {{ $datadetail["data"]->noTelp }}
+                                                @break
                                             @default
                                         @endswitch
                                     </div>
@@ -94,6 +116,12 @@
                                                 @break
                                             @case("supplier")
                                                 {{ $datadetail["data"]->address }}
+                                                @break
+                                            @case("pegawai")
+                                                {{ $datadetail["data"]->noTelp }}
+                                                @break
+                                            @case("pelanggan")
+                                                {{ $datadetail["data"]->email }}
                                                 @break
                                             @default
                                         @endswitch

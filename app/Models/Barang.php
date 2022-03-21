@@ -9,12 +9,13 @@ class Barang extends Model
 {
     use HasFactory;
 
-    protected $table = "pelanggans";
+    protected $table = "barangs";
     protected $primaryKey = 'id';
     protected $fillable = [
-        'namaPelanggan',
-        'alamat',
-        'noTelp',
-        'email',
+        'name',
+        'image',
+        'description',
+        'stok',
+        'prize'
     ];
 }
