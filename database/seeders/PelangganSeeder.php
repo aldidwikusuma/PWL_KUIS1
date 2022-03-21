@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Supplier;
-
 use Illuminate\Database\Seeder;
 
-class SupplierSeeder extends Seeder
+class PelangganSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +13,6 @@ class SupplierSeeder extends Seeder
      */
     public function run()
     {
-        Supplier::factory(25)->create();
-
+        //
     }
 }
