@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Barang;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class BarangSeeder extends Seeder
 {
