@@ -27,6 +27,10 @@ Route::get('/', function () {
 });
 
 Route::get('/table/{table}', function ($table) {
+    $tablename = ["barang", "supplier"];
+    if (!in_array($table, $tablename)) {
+        return view("errors.404");
+    }
     $titletable = [];
     switch ($table) {
         case "barang":
@@ -52,6 +56,10 @@ Route::get('/table/{table}', function ($table) {
 });
 
 Route::get('/table/{table}/detail/{keyid}', function ($table, $keyid) {
+    $tablename = ["barang", "supplier"];
+    if (!in_array($table, $tablename) || DB::table(ucfirst($table) . "s")->where("id", $keyid)->count() == 0) {
+        return view("errors.404");
+    }
     $titledesc = [];
     switch ($table) {
         case "barang":
