@@ -1,3 +1,5 @@
+{{-- @dd($table["data"]) --}}
+
 @extends('layout.main')
 
 @section('maincontent')
@@ -11,7 +13,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Total Data = {{ $table["total"] }}</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Total Data = <span id="totaldata">{{ $table["total"] }}</span> <span id="msgsearch">{{ request("key") ? ' | Search data by ' . request("key") : ""}}</span></h6>
         </div>
         <div class="card-body">
             @if ($table["data"]->count() > 0)
@@ -27,12 +29,12 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <style>
-                                table.table td{
-                                    vertical-align: middle !important;
-                                }
-                            </style>
+                        <style>
+                            table.table td{
+                                vertical-align: middle !important;
+                            }
+                        </style>
+                        <tbody id="displaydata">
                             @switch($table["url"])
                                 @case("barang")
                                     @foreach ($table["data"] as $number => $datatablesatuan)
@@ -113,5 +115,35 @@
             {{ $table["data"]->links() }}
         </div>
     </div>
-
+    <script>
+        const inputkey = document.getElementById("inputkey");
+        const inputtabel = document.getElementById("inputtabel").value;
+        const displaydata = document.getElementById("displaydata");
+        const totaldata = document.getElementById("totaldata");
+        const msgsearch = document.getElementById("msgsearch");
+        if (inputkey != "") {
+            inputkey.addEventListener("keyup", function () {
+                let ajax = new XMLHttpRequest();
+                ajax.onreadystatechange = function () {
+                    if (ajax.readyState == 4 && ajax.status == 200) {
+                        // console.log(inputkey.value);
+                        // console.log(ajax.responseText.length);
+                        displaydata.innerHTML = ajax.responseText;
+                        msgsearch.innerHTML = "| Search data by " + inputkey.value;
+                        if (document.getElementById("msgdatanotfound") != null ) {
+                            document.getElementById("msgdatanotfound").innerHTML = inputkey.value;
+                        } 
+                        
+                    } 
+                };
+                
+                // let url = "http://localhost:8000/table/" + inputtabel + "/ajax?data=" + inputkey.value;
+                let url = '{{ url("table/" . $table["url"] . "/search?data=") }}' + inputkey.value;
+                // console.log(url);
+                // ajax.open("GET", {{ url("table/" . $table["url"] . "/search?data=") }} + inputkey.value , true);
+                ajax.open("GET", url , true);
+                ajax.send();
+            });
+        }
+    </script>
 @endsection

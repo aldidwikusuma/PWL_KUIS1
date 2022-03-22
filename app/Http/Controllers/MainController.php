@@ -88,4 +88,35 @@ class MainController extends Controller
             ]
         ]);
     }
+
+    public function search($table)
+    {
+        // if (!request("data")) {
+        //     return view("errors.404");
+        // }
+        $datatable = [];
+        switch ($table) {
+            case "barang":
+                $datatable = DB::table(ucfirst($table) . "s")->where("name", "like", "%" . request("data") . "%");
+                break;
+            case "supplier":
+                $datatable = DB::table(ucfirst($table) . "s")->where("name", "like", "%" . request("data") . "%");
+                break;
+            case "pegawai":
+                $datatable = DB::table(ucfirst($table) . "s")->where("namaPegawai", "like", "%" . request("data") . "%");
+                break;
+            case "pelanggan":
+                $datatable = DB::table(ucfirst($table) . "s")->where("namaPelanggan", "like", "%" . request("data") . "%");
+                break;
+            default:
+                break;
+        }
+        return view("search", [
+            "table" => [
+                "url" => $table,
+                "data" => $datatable->get(),
+                "total" => $datatable->count(),
+            ]
+        ]);
+    }
 }
