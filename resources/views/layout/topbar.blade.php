@@ -8,7 +8,7 @@
     @if ($title !== "Dashboard" && $title !== "Detail Data")
         <form action="" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-                <input id="inputkey" type="text" name="key" value="{{ request("key") }}" autofocus="" autocomplete="off" class="form-control bg-light border-0 small" placeholder="Search by Name or Price" />
+                <input id="inputkey" type="text" name="key" value="{{ request("key") }}" autofocus="" autocomplete="off" class="form-control bg-light border-0 small" placeholder="Search by Name" />
                 <input id="inputtabel" type="hidden" value="{{ $table["url"] }}" />
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">

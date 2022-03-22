@@ -90,8 +90,27 @@ Route::get('/table/{table}/detail/{keyid}', function ($table, $keyid) {
     ]);
 });
 
-Route::get('/table/{table}/ajax', function ($table) {
-    $datatable = DB::table(ucfirst($table) . "s")->where("name", "like", "%" . request("data") . "%");
+Route::get('/table/{table}/search', function ($table) {
+    // if (!request("data")) {
+    //     return view("errors.404");
+    // }
+    $datatable = [];
+    switch ($table) {
+        case "barang":
+            $datatable = DB::table(ucfirst($table) . "s")->where("name", "like", "%" . request("data") . "%");
+            break;
+        case "supplier":
+            $datatable = DB::table(ucfirst($table) . "s")->where("name", "like", "%" . request("data") . "%");
+            break;
+        case "pegawai":
+            $datatable = DB::table(ucfirst($table) . "s")->where("namaPegawai", "like", "%" . request("data") . "%");
+            break;
+        case "pelanggan":
+            $datatable = DB::table(ucfirst($table) . "s")->where("namaPelaggan", "like", "%" . request("data") . "%");
+            break;
+        default:
+            break;
+    }
     return view("search", [
         "table" => [
             "url" => $table,

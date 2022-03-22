@@ -13,5 +13,5 @@
         </tr>
     @endforeach
 @else
-    <h3>Data not Found</h3>
+    <h3 class="mt-3">Data <span id="msgdatanotfound"></span> not Found</h3>
 @endif
