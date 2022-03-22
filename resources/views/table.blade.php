@@ -1,3 +1,5 @@
+{{-- @dd($table["data"]) --}}
+
 @extends('layout.main')
 
 @section('maincontent')
@@ -11,7 +13,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Total Data = {{ $table["total"] }}</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Total Data = {{ $table["total"] }} {{ request("key") ? ' | Search data by ' . request("key") : ""}}</h6>
         </div>
         <div class="card-body">
             @if ($table["data"]->count() > 0)
@@ -27,7 +29,7 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="displaydata">
                             <style>
                                 table.table td{
                                     vertical-align: middle !important;
@@ -83,5 +85,23 @@
             {{ $table["data"]->links() }}
         </div>
     </div>
+    <script>
+        const inputkey = document.getElementById("inputkey");
+        const inputtabel = document.getElementById("inputtabel").value;
+        const displaydata = document.getElementById("displaydata");
 
+        inputkey.addEventListener("keyup", function () {
+            let ajax = new XMLHttpRequest();
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState == 4 && ajax.status == 200) {
+                    console.log(inputkey.value);
+                    displaydata.innerHTML = ajax.responseText;
+                }
+            };
+            let url = "http://localhost:8000/table/" + inputtabel + "/ajax?data=" + inputkey.value;
+            let url = "http://localhost:8000/table/" + inputtabel + "/ajax?data=" + inputkey.value;
+            ajax.open("GET", {{ url() }} , true);
+            ajax.send();
+        });
+    </script>
 @endsection

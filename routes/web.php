@@ -43,14 +43,23 @@ Route::get('/table/{table}', function ($table) {
             
             break;
     }
+
+    // Cek request dari input
+    $datatable = [];
+    if (request("key")) {
+        $datatable = DB::table(ucfirst($table) . "s")->where("name", "like", "%" . request("key") . "%");
+    } else {
+        $datatable = DB::table(ucfirst($table) . "s");
+    }
+
     return view('table', [
         "title" => "Table " . ucfirst($table),
         "titleheader" => "Table of " . ucfirst($table),
         "table" => [
             "url" => $table,
-            "total" => DB::table(ucfirst($table) . "s")->count(),
             "title" => $titletable,
-            "data" => DB::table(ucfirst($table) . "s")->paginate(15)
+            "total" => $datatable->count(),
+            "data" => $datatable->paginate(15)
         ]
     ]);
 });
@@ -80,3 +89,14 @@ Route::get('/table/{table}/detail/{keyid}', function ($table, $keyid) {
         ]
     ]);
 });
+
+Route::get('/table/{table}/ajax', function ($table) {
+    $datatable = DB::table(ucfirst($table) . "s")->where("name", "like", "%" . request("data") . "%");
+    return view("search", [
+        "table" => [
+            "url" => $table,
+            "data" => $datatable->get(),
+            "total" => $datatable->count(),
+        ]
+    ]);
+})->name("search");
